@@ -1,5 +1,3 @@
-__author__ = 'tanel'
-
 import argparse
 from ws4py.client.threadedclient import WebSocketClient
 import time
@@ -10,6 +8,7 @@ import Queue
 import json
 import time
 import os
+
 
 def rate_limited(maxPerSecond):
     minInterval = 1.0 / float(maxPerSecond)
@@ -123,6 +122,6 @@ def main():
     result = ws.get_full_hyp()
     print result.encode('utf-8')
 
+
 if __name__ == "__main__":
     main()
-

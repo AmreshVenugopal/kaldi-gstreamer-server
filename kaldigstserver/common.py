@@ -1,4 +1,4 @@
-__author__ = 'tanel'
+
 
 STATUS_EOS = -1
 STATUS_SUCCESS = 0

@@ -1,5 +1,3 @@
-__author__ = 'tanel'
-
 import logging
 import logging.config
 import time
