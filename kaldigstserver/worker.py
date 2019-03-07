@@ -71,18 +71,18 @@ class ServerWebsocket(WebSocketClient):
         self.post_processor_lock = threading.Lock()
         self.processing_condition = threading.Condition()
         self.num_processing_threads = 0
-        
-        
+
     def opened(self):
         logger.info("Opened websocket connection to server")
         self.state = self.STATE_CONNECTED
         self.last_partial_result = ""
-    
+
     def guard_timeout(self):
         global SILENCE_TIMEOUT
         while self.state in [self.STATE_EOS_RECEIVED, self.STATE_CONNECTED, self.STATE_INITIALIZED, self.STATE_PROCESSING]:
             if time.time() - self.last_decoder_message > SILENCE_TIMEOUT:
                 logger.warning("%s: More than %d seconds from last decoder hypothesis update, cancelling" % (self.request_id, SILENCE_TIMEOUT))
+                self.state = self.STATE_FINISHED
                 self.finish_request()
                 event = dict(status=common.STATUS_NO_SPEECH)
                 try:
